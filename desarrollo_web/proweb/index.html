@@ -1,0 +1,88 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/estilos.css" type="text/css">
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+		$(document).ready(function(){
+		$('#msg').hide();
+		$('#btn2').hide();
+		
+            $('#btn1').click(function(){
+					
+					jQuery.post("insertar.php", {
+						nom:$('#nom').val(),
+						mat:$('#mat').val()
+					}, function(data, textStatus){
+						if(data == 1){
+							$('#mat').val("");
+							$('#nom').val("");					
+							$('#msg').show();
+							$('#msg').html("El alumno fue registrado correctamente.");
+							$('#btn1').hide();
+							$('#btn2').show();
+						}
+						else{
+							$('#msg').show();
+							$('#msg').html("Ha ocurrido un error.");							
+						}
+					});
+					
+            });
+			
+			$('#btn2').click(function(){
+					$('#btn1').show();
+					$('#btn2').hide();
+					$('#msg').hide();
+					
+			});
+			
+			$('#btn3').click(function(){
+					
+					jQuery.post("eliminar.php", {						
+						mat:$('#mat').val()
+					}, function(data, textStatus){
+						if(data == 1){
+					$('#msg').show();
+					$('#msg').html("El alumno fue eliminado correctamente.");							
+						}
+						else{
+					$('#msg').show();
+					$('#msg').html("Ha ocurrido un error.");								
+						}
+					});
+			});
+			
+			$('#btn4').click(function(){
+					
+					jQuery.post("consultar.php", {						
+						mat:$('#mat').val()
+					}, function(data, textStatus){
+						var res = jQuery.parseJSON(data);
+						$('#nom').val(res.nombre);										
+						
+					});
+			});
+			
+        });
+</script>
+</head>
+<body>
+<div class="main">
+<div class="panel-1"><B>Control de Alumnos<B></div>
+<label>Matricula:</label>						
+<input class="form-control" type="text" id="mat" name="n1" value="" placeholder="Ingresa tu nombre">
+<br>
+<label>Nombre:</label>						
+<input class="form-control" type="text" id="nom" name="n2" value="">
+<br>
+<button id="btn1">Registrar</button>
+<button id="btn2">Nuevo</button>
+<button id="btn3">Eliminar</button>
+<button id="btn4">Consultar</button>
+<br>
+<div class="panel-1" id="msg"></div>
+<br>
+
+</div>
+</body>
+</html>
