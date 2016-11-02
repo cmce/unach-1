@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- copyright 2016 -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>ChristianMCE - UNACH</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="js/jquery.min.js"></script>
+        <script src="js/fileinput.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container kv-main">
+            <div class="page-header">
+            <h1>Ejemplo formulario para subir imagenes o archivos<small></small></h1>
+            </div>
+            
+			<form enctype="multipart/form-data">
+                <div class="form-group">
+                    <input id="file-1" type="file" name="images[]" multiple class="file" data-overwrite-initial="false" data-min-file-count="1">
+                </div>
+			 </form>
+             
+            <br>
+        </div>
+    </body>
+	<script>
+    
+    $("#file-1").fileinput({
+        uploadUrl: 'subir.php', // you must set a valid URL here else you will get an error
+		showRemove: false,
+        allowedFileExtensions : ['jpg', 'png','gif'],
+        overwriteInitial: false,
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function(filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+	});
+    
+	</script>
+</html>
